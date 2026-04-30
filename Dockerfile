@@ -14,20 +14,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install pdo_pgsql pdo_mysql
 
 # Clone the chyrp-lite repo and copy it into the webroot
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git && \
-    git clone https://github.com/xenocrat/chyrp-lite.git cpl && \
+RUN git clone https://github.com/xenocrat/chyrp-lite.git cpl && \
     chown -R www-data cpl && \
     cp -rp cpl/* /var/www/html/
 
 # Remove files and directories which are in the repo clone but shouldn't be accessible from the webroot.
 # This is essentially the chyrp-lite repo's .dockerignore plus detritus from my own nonsense.
-RUN rm -r /var/www/html/cpl && \
-    rm /var/www/html/*.md && \
-    rm -r /var/www/html/tools && \
-    rm -r /var/www/html/.git && \
-    rm /var/www/html/Dockerfile && \
-    rm /var/www/html/docker-compose.yaml
+RUN rm -rf /var/www/html/cpl && \
+    rm -f /var/www/html/*.md && \
+    rm -rf /var/www/html/tools && \
+    rm -rf /var/www/html/.git && \
+    rm -f /var/www/html/Dockerfile && \
+    rm -f /var/www/html/docker-compose.yaml
 
 RUN mkdir -p /data/ \
     && chown -R www-data /data \
