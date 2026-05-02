@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install pdo_pgsql pdo_mysql
 
+# Bust the cache if there's a new git revision in the main chyrp-lite repo
+ADD https://api.github.com/repos/xenocrat/chyrp-lite/git/refs/heads/master version.json
+
 # Clone the chyrp-lite repo and copy it into the webroot
 RUN git clone https://github.com/xenocrat/chyrp-lite.git cpl && \
     chown -R www-data cpl && \
