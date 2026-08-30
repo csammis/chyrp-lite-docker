@@ -1,0 +1,36 @@
+<div id="sidebar" role="banner">
+<form class="search_box" action="{{ url('search') }}" method="post" accept-charset="UTF-8" role="search">
+<input type="text" id="sidebar_search_field" name="query" value="{{ search is defined ? search | fix(true, true) : '' }}" placeholder="{{ 'Search&hellip;' | translate }}" aria-label="{{ 'Search this blog' | translate }}">
+<button type="submit" id="sidebar_search_submit">{{ "Search" | translate }}</button>
+</form>
+<h2 class="menu_toggle" id="menu"><a role="button" href="#menu">{{ "Menu" | translate }}</a></h2>
+<h2 class="menu_toggle"><a role="button" href="#" aria-label="{{ 'Close menu' | translate }}">{{ "Menu" | translate }}</a></h2>
+
+<!-- Static links -->
+<ul class="navigation sidebar">
+<li class="page">
+  <a href="https://prettygoodonpaper.com/?action=page&url=about">About</a>
+</li>
+<li class="page">
+  <a href="https://inventory.prettygoodonpaper.com/contact">Contact</a>
+</li>
+<li class="page">
+  <a href="https://inventory.prettygoodonpaper.com/">Inventory</a>
+</li>
+</ul>
+
+<!-- Archive list -->
+{% if theme.archives_list() is not empty %}
+<h2 id="label_archive_list">
+<a href="{{ url('archive') }}" rel="archives">{{ "Archive" | translate }}</a>
+</h2>
+<ul class="navigation sidebar archive_list" aria-labelledby="label_archive_list">
+{% for archive in theme.archives_list() %}
+<li>
+<a href="{{ archive.url }}">{{ archive.when | time("F Y" | translate, "title") }}</a>
+</li>
+{% endfor %}
+</ul>
+{% endif %}
+
+</div>
