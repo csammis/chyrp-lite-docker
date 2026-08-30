@@ -1,8 +1,5 @@
 FROM php:8.3-apache
 
-# Copy the customizations into the webroot
-COPY --chown=www-data . /var/www/html/
-
 # Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
       inotify-tools \
@@ -20,6 +17,10 @@ ADD https://api.github.com/repos/xenocrat/chyrp-lite/git/refs/heads/master versi
 RUN git clone https://github.com/xenocrat/chyrp-lite.git cpl && \
     chown -R www-data cpl && \
     cp -rp cpl/* /var/www/html/
+
+# Copy the customizations into the webroot. Do this after the clone so that files intended to overwrite
+# stock chyrp-lite files are used instead.
+COPY --chown=www-data . /var/www/html/
 
 # Remove files and directories which are in the repo clone but shouldn't be accessible from the webroot.
 # This is essentially the chyrp-lite repo's .dockerignore plus detritus from my own nonsense.
