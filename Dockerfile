@@ -47,8 +47,10 @@ USER www-data
 
 EXPOSE 80/tcp
 
+# Use /var/www/html as the volume to work around an issue in which config.json.php
+# gets dropped into the webroot and is blown away on each container restart.
 VOLUME /data
-VOLUME /var/www/html/uploads
+VOLUME /var/www/html
 
 ENTRYPOINT ["/entrypoint.sh"]
 
