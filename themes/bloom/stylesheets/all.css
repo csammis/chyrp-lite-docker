@@ -98,6 +98,17 @@ header {
   padding: 0.1em 0.5em;
 }
 
+.header-title {
+  box-sizing: border-box;
+}
+
+.banner-img {
+  box-sizing: border-box;
+  object-fit: contain;
+  width: fit-content;
+  max-width: 100%;
+}
+
 div#container {
   display: flex;
 }
@@ -1022,7 +1033,6 @@ div.standalone > *:last-child {
 }
 @media screen and (max-width: 959px) {
     body {
-        margin: 1rem;
     }
     form.comment_edit {
         padding: 0rem 0rem 1rem 0rem;
